@@ -1,0 +1,7 @@
+node_modules/
+*.pdf
+*.png
+*.ttf
+*.job.json
+*.snapshot.json
+*.report.json
