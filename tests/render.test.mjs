@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { freezeSnapshot, canonical, checkAuthorization, checkRect, firstBaseline, fitText, resolvePhotoCells } from '../scripts/render.mjs';
+import { freezeSnapshot, canonical, checkAuthorization, checkRect, firstBaseline, fitText, resolvePhotoCells, checkTemplateVariant } from '../scripts/render.mjs';
 
 const fields = JSON.parse(fs.readFileSync(new URL('../fields.json', import.meta.url), 'utf8'));
 function fixture() {
@@ -80,4 +80,41 @@ test('overflow and missing glyphs fail instead of silently clipping', () => {
   assert.throws(() => fitText('long '.repeat(300), [0, 0, 100, 30], 11, font, metrics), /does not fit/);
   const result = fitText('test', [0, 0, 100, 30], 11, font, metrics);
   assert.equal(result.lines.join(''), 'test');
+});
+
+test('v2 requires an explicit watermark choice and changes the frozen hash', () => {
+  const input = { ...fixture(), schema: 'yunda-export-v2', watermark: 'yunda' };
+  const branded = freezeSnapshot(input);
+  input.watermark = 'none';
+  const neutral = freezeSnapshot(input);
+  assert.notEqual(branded.snapshotHash, neutral.snapshotHash);
+  const authorization = { snapshot_sha256: branded.snapshotHash, profile_revision: '2', language: 'zh-en', watermark: 'yunda', omissions: branded.snapshot.omissions, instruction: 'These blanks, with watermark.' };
+  assert.throws(() => checkAuthorization(neutral.snapshot, neutral.snapshotHash, authorization), /stale/);
+  authorization.snapshot_sha256 = neutral.snapshotHash;
+  assert.throws(() => checkAuthorization(neutral.snapshot, neutral.snapshotHash, authorization), /watermark mismatch/);
+  for (const value of [undefined, '', 'false', false, 'other']) {
+    input.watermark = value;
+    assert.throws(() => freezeSnapshot(input), /explicitly/);
+  }
+});
+
+test('watermark selection cannot silently use the other master or an unpinned neutral master', () => {
+  const snapshot = { ...fixture(), schema: 'yunda-export-v2', watermark: 'none' };
+  assert.throws(() => checkTemplateVariant(snapshot, {}), /variant mismatch/);
+  assert.throws(() => checkTemplateVariant(snapshot, { watermark: 'none' }), /pin/);
+  assert.throws(() => checkTemplateVariant(snapshot, { watermark: 'none', template_pdf_sha256: 'd'.repeat(64) }), /identity mismatch/);
+  const map = { watermark: 'none', template_pdf_sha256: snapshot.template.template_pdf_sha256 };
+  assert.equal(checkTemplateVariant(snapshot, map), 'none');
+  snapshot.watermark = 'yunda';
+  assert.throws(() => checkTemplateVariant(snapshot, map), /variant mismatch/);
+  assert.equal(checkTemplateVariant(snapshot, {}), 'yunda');
+});
+
+test('legacy snapshots retain their hash and only use the branded legacy map', () => {
+  const snapshot = fixture();
+  assert.equal(checkTemplateVariant(snapshot, {}), 'yunda');
+  assert.throws(() => checkTemplateVariant(snapshot, { watermark: 'none' }), /variant mismatch/);
+  const frozen = freezeSnapshot(snapshot);
+  assert.equal(Object.hasOwn(frozen.snapshot, 'watermark'), false);
+  assert.equal(frozen.bytes, canonical({ ...snapshot, answers: [...snapshot.answers].sort((a, b) => a.field_key < b.field_key ? -1 : 1), omissions: [...snapshot.omissions].sort() }));
 });

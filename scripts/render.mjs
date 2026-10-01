@@ -37,8 +37,10 @@ export function sha256(bytes) {
 
 export function freezeSnapshot(input) {
   const snapshot = structuredClone(input);
-  assertKeys(snapshot, ['schema', 'profile', 'language', 'export_date', 'answers', 'display_values', 'photos', 'template', 'omissions'], 'snapshot');
-  assert(snapshot.schema === 'yunda-export-v1', 'Unsupported snapshot schema');
+  assert(['yunda-export-v1', 'yunda-export-v2'].includes(snapshot.schema), 'Unsupported snapshot schema');
+  const v2 = snapshot.schema === 'yunda-export-v2';
+  assertKeys(snapshot, ['schema', 'profile', 'language', 'export_date', 'answers', 'display_values', 'photos', 'template', 'omissions', ...(v2 ? ['watermark'] : [])], 'snapshot');
+  if (v2) assert(['yunda', 'none'].includes(snapshot.watermark), 'Choose yunda or none watermark explicitly');
   assertKeys(snapshot.profile, ['profile_id', 'revision'], 'profile');
   assert(uuidPattern.test(snapshot.profile.profile_id), 'Invalid profile ID');
   assert(typeof snapshot.profile.revision === 'string' && /^[1-9]\d*$/.test(snapshot.profile.revision), 'Revision must be a positive decimal string');
@@ -93,6 +95,7 @@ export function freezeSnapshot(input) {
 export function checkAuthorization(snapshot, snapshotHash, authorization) {
   if (!snapshot.omissions.length) return;
   assert(authorization && authorization.snapshot_sha256 === snapshotHash, 'Missing or stale blank authorization');
+  if (snapshot.schema === 'yunda-export-v2') assert(authorization.watermark === snapshot.watermark, 'Blank authorization watermark mismatch');
   assert(authorization.profile_revision === snapshot.profile.revision && authorization.language === snapshot.language, 'Authorization revision/language mismatch');
   assert(Array.isArray(authorization.omissions) && [...authorization.omissions].sort().join('|') === snapshot.omissions.join('|'), 'Authorization omissions mismatch');
   assert(typeof authorization.instruction === 'string' && authorization.instruction.trim(), 'Authorization must record the user instruction');
@@ -102,6 +105,15 @@ export function checkRect(rect, width, height) {
   assert(Array.isArray(rect) && rect.length === 4 && rect.every(Number.isFinite), 'Invalid rectangle');
   const [left, top, right, bottom] = rect;
   assert(left >= 0 && top >= 0 && right > left && bottom > top && right <= width && bottom <= height, 'Rectangle out of bounds');
+}
+
+export function checkTemplateVariant(snapshot, map) {
+  const watermark = snapshot.schema === 'yunda-export-v2' ? snapshot.watermark : 'yunda';
+  const mapped = map.watermark ?? 'yunda';
+  assert(['yunda', 'none'].includes(mapped) && mapped === watermark, 'Template watermark variant mismatch');
+  if (watermark === 'none') assert(hashPattern.test(map.template_pdf_sha256), 'No-watermark map must pin its reviewed master');
+  if (map.template_pdf_sha256) assert(map.template_pdf_sha256 === snapshot.template.template_pdf_sha256, 'Map and master identity mismatch');
+  return watermark;
 }
 
 export function resolvePhotoCells(cells) {
@@ -173,6 +185,7 @@ export async function renderJob(job) {
   };
   const master = readAsset(job.assets.master, snapshot.template.template_pdf_sha256);
   const map = JSON.parse(readAsset(job.assets.map, snapshot.template.field_map_sha256).toString('utf8'));
+  const watermark = checkTemplateVariant(snapshot, map);
   const fontBytes = readAsset(job.assets.font, snapshot.template.font_sha256);
   assert(map.version === snapshot.template.version && Array.isArray(map.fields) && Array.isArray(map.photos) && Array.isArray(map.englishLabels), 'Invalid map contract');
   map.photos = resolvePhotoCells(map.photos);
@@ -197,7 +210,7 @@ export async function renderJob(job) {
       assert(typeof cell.text === 'string' && Array.isArray(cell.fill) && cell.fill.length === 3 && cell.fill.every(n => Number.isFinite(n) && n >= 0 && n <= 1), 'Invalid English label');
       const [left, top, right, bottom] = cell.rect;
       const page = pages[cell.page];
-      page.drawRectangle({ x: left, y: page.getHeight() - bottom, width: right - left, height: bottom - top, color: rgb(...cell.fill) });
+      page.drawRectangle({ x: left + 0.6, y: page.getHeight() - bottom + 0.6, width: right - left - 1.2, height: bottom - top - 1.2, color: rgb(...cell.fill) });
       drawText(page, cell.text, cell, font, metrics, cell.heading ? [1, 1, 1] : [0.12, 0.10, 0.09]);
     }
   }
@@ -227,15 +240,16 @@ export async function renderJob(job) {
   pdf.context.trailerInfo.Info = undefined;
   const output = await pdf.save({ useObjectStreams: true, addDefaultPage: false });
   const label = snapshot.display_values.displayName.replace(/[^A-Za-z0-9._-]/g, '').slice(0, 40) || 'Profile';
-  const filename = `${label}_${snapshot.language}_r${snapshot.profile.revision}_${job.export_id}.pdf`;
+  const variantSuffix = snapshot.schema === 'yunda-export-v2' ? `_wm-${watermark}` : '';
+  const filename = `${label}_${snapshot.language}${variantSuffix}_r${snapshot.profile.revision}_${job.export_id}.pdf`;
   fs.mkdirSync(job.output_dir, { recursive: true, mode: 0o700 });
   const outputPath = path.join(job.output_dir, filename);
   assert(!fs.existsSync(outputPath), 'Output exists; inspect and reuse it instead of rerendering');
   fs.writeFileSync(outputPath, output, { mode: 0o600 });
   fs.writeFileSync(path.join(job.output_dir, `${job.export_id}.snapshot.json`), bytes, { mode: 0o600 });
-  const report = { export_id: job.export_id, snapshot_sha256: snapshotHash, revision: snapshot.profile.revision, language: snapshot.language, filename, bytes: output.length, sha256: sha256(output), md5: createHash('md5').update(output).digest('hex'), pages: pages.length, placements, status: 'rendered-needs-visual-and-privacy-verification' };
+  const report = { export_id: job.export_id, snapshot_sha256: snapshotHash, revision: snapshot.profile.revision, language: snapshot.language, watermark, filename, bytes: output.length, sha256: sha256(output), md5: createHash('md5').update(output).digest('hex'), pages: pages.length, placements, status: 'rendered-needs-visual-and-privacy-verification' };
   fs.writeFileSync(path.join(job.output_dir, `${job.export_id}.report.json`), JSON.stringify(report, null, 2), { mode: 0o600 });
-  return { filename, bytes: report.bytes, pages: report.pages, snapshot_sha256: snapshotHash, status: report.status };
+  return { filename, bytes: report.bytes, pages: report.pages, watermark, snapshot_sha256: snapshotHash, status: report.status };
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
@@ -245,7 +259,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const input = JSON.parse(fs.readFileSync(file, 'utf8'));
     if (command === 'prepare') {
       const { snapshot, snapshotHash } = freezeSnapshot(input);
-      console.log(JSON.stringify({ snapshot_sha256: snapshotHash, revision: snapshot.profile.revision, language: snapshot.language, omissions: snapshot.omissions }));
+      console.log(JSON.stringify({ snapshot_sha256: snapshotHash, revision: snapshot.profile.revision, language: snapshot.language, watermark: snapshot.watermark ?? 'yunda', omissions: snapshot.omissions }));
     } else console.log(JSON.stringify(await renderJob(input)));
   } catch (error) {
     console.error(error.message);

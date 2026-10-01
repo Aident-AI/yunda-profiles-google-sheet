@@ -22,6 +22,16 @@ For import, require only the schema_version key. The remaining keys are export p
 
 All people with workbook access can read all its tabs, including internal fields. Hiding or protecting a tab is not an access boundary. Keep the workbook restricted to authorized staff; share generated PDFs separately only when the user requests a recipient or audience.
 
+## Template variants
+
+Watermark is an export option, independent of language; the profile and its 82 Answers rows stay unchanged. Ask only when the user has not selected it. Keep `yunda-sheet-v1` and the existing headers. Record `watermark` (`yunda` or `none`) and the selected template version in the Exports authorization metadata for each new export, including complete exports without omissions. Historical rows without a mode remain untouched and are not automatically classified.
+
+- `yunda`: use existing `template_version`, `template_pdf_url`, `template_pdf_sha256`, `field_map_url`, `field_map_sha256`. This preserves the previously approved Yunda-branded layout.
+- `none`: use `no_watermark_template_version`, `no_watermark_template_pdf_url`, `no_watermark_template_pdf_sha256`, `no_watermark_field_map_url`, `no_watermark_field_map_sha256`. The map declares `watermark: "none"` and pins its `template_pdf_sha256`. Preserve the supplied no-watermark sample's partner logos and generic footer.
+- Both modes use the existing shared `font_url`, `font_sha256`, `font_license_url` and `output_folder_url`. They support both `en` and `zh-en`; apply English labels from that variant's own map. Do not reuse branded coordinates on the no-watermark layout.
+
+Fetch and check only the selected variant. Missing no-watermark configuration blocks that export, not imports or the branded option. Ask for an approved blank master/map or offer the configured option; do not quietly change the user's selection. Configure approved assets privately during setup, never distribute a filled candidate example as a template or put private assets in the public Skill.
+
 ## Field dictionary
 
 The following is the complete PDF export allowlist. All 74 export keys and 8 internal keys get an Answers row on import. Initialize them together, map supported values in one pass, and leave unsupported values blank; this is not 82 separate tool calls or questions. Match source questions by meaning, not only exact wording. Keep canonical values in the source language or accurate English, preserving meaning. Generate Chinese translations for export without overwriting the evidence. Sections and readable labels may be bilingual.
@@ -57,4 +67,3 @@ Inspect userEnteredValue, effectiveValue, formula and validation metadata only f
 A values batch input uses `spreadsheet_id`, `valueInputOption: "RAW"`, and `data` entries with exact A1 `range` and rectangular `values`. Use explicit empty strings for authorized clears. Save only verified destination rows; never guess the next row from a stale local cache. Values batches do not extend a grid beyond its declared row count, change table ranges, or lock concurrent writers. Discover a matching native Sheets row-growth/table Action when needed, inspect its schema, grow only the required range, then verify the table still covers all used data and dropdown choices remain valid.
 
 For file uploads, use the live temporary-storage schema with exact filename, MIME type and byte length. Upload the actual bytes to its returned signed target, then request the short-lived download URL immediately before Drive resumable upload. Keep temporary URLs out of logs, Sheet cells and user-facing messages. Store only the final Drive file ID/link. Do not create public-link permissions to make an upload easier. Respect live size limits; a failed or queued upload is not a completed cloud sync, even when local rendering has finished.
-

@@ -1,6 +1,6 @@
 # Yunda Profiles with Google Sheets
 
-A companion to the public Loadout Skill for importing, finding and updating profiles in a private Google Sheet and producing an exact-template English or Chinese-English PDF delivered through private Google Drive.
+A companion to the public Loadout Skill for importing, finding and updating profiles in a private Google Sheet and producing an exact-template English or Chinese-English PDF with or without Yunda watermark delivered through private Google Drive.
 
 ChatGPT reads the public Skill's instructions. CLI-backed agents receive this reviewed renderer through the same Skill's authorized favorite/sync lifecycle. The Skill needs no application server or repository checkout at runtime.
 
