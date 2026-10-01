@@ -71,7 +71,7 @@ export function freezeSnapshot(input) {
     if (unresolved) assert(snapshot.display_values[answer.field_key] === '', 'Unresolved fields must remain blank');
     if (!unresolved) assert(snapshot.display_values[answer.field_key].trim(), 'A sourced answer cannot be silently omitted');
   }
-  assert(snapshot.display_values.displayName.trim(), 'Approved public display name is required');
+  assert(snapshot.display_values.displayName.trim(), 'Public display name is required');
   assert(Array.isArray(snapshot.photos), 'Photos must be an array');
   const photoRoles = new Set();
   const photoIds = new Set();
@@ -94,6 +94,7 @@ export function freezeSnapshot(input) {
 
 export function checkAuthorization(snapshot, snapshotHash, authorization) {
   if (!snapshot.omissions.length) return;
+  if (snapshot.schema === 'yunda-export-v2' && authorization === undefined) return;
   assert(authorization && authorization.snapshot_sha256 === snapshotHash, 'Missing or stale blank authorization');
   if (snapshot.schema === 'yunda-export-v2') assert(authorization.watermark === snapshot.watermark, 'Blank authorization watermark mismatch');
   assert(authorization.profile_revision === snapshot.profile.revision && authorization.language === snapshot.language, 'Authorization revision/language mismatch');
@@ -247,7 +248,8 @@ export async function renderJob(job) {
   assert(!fs.existsSync(outputPath), 'Output exists; inspect and reuse it instead of rerendering');
   fs.writeFileSync(outputPath, output, { mode: 0o600 });
   fs.writeFileSync(path.join(job.output_dir, `${job.export_id}.snapshot.json`), bytes, { mode: 0o600 });
-  const report = { export_id: job.export_id, snapshot_sha256: snapshotHash, revision: snapshot.profile.revision, language: snapshot.language, watermark, filename, bytes: output.length, sha256: sha256(output), md5: createHash('md5').update(output).digest('hex'), pages: pages.length, placements, status: 'rendered-needs-visual-and-privacy-verification' };
+  const omissionPolicy = !snapshot.omissions.length ? 'complete' : job.authorization === undefined ? 'leave-unknowns-blank' : 'recorded-instruction';
+  const report = { export_id: job.export_id, snapshot_sha256: snapshotHash, revision: snapshot.profile.revision, language: snapshot.language, watermark, omission_policy: omissionPolicy, omissions: snapshot.omissions, filename, bytes: output.length, sha256: sha256(output), md5: createHash('md5').update(output).digest('hex'), pages: pages.length, placements, status: 'rendered-needs-visual-and-privacy-verification' };
   fs.writeFileSync(path.join(job.output_dir, `${job.export_id}.report.json`), JSON.stringify(report, null, 2), { mode: 0o600 });
   return { filename, bytes: report.bytes, pages: report.pages, watermark, snapshot_sha256: snapshotHash, status: report.status };
 }

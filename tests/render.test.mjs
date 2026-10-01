@@ -118,3 +118,26 @@ test('legacy snapshots retain their hash and only use the branded legacy map', (
   assert.equal(Object.hasOwn(frozen.snapshot, 'watermark'), false);
   assert.equal(frozen.bytes, canonical({ ...snapshot, answers: [...snapshot.answers].sort((a, b) => a.field_key < b.field_key ? -1 : 1), omissions: [...snapshot.omissions].sort() }));
 });
+
+test('v2 exports missing fields and photos as blanks without an approval object', () => {
+  for (const watermark of ['yunda', 'none']) {
+    for (const language of ['en', 'zh-en']) {
+      const input = { ...fixture(), schema: 'yunda-export-v2', watermark, language };
+      const frozen = freezeSnapshot(input);
+      assert.ok(frozen.snapshot.omissions.includes('photos.cover'));
+      assert.ok(frozen.snapshot.omissions.includes('hiv'));
+      assert.equal(frozen.snapshot.display_values.hiv, '');
+      assert.doesNotThrow(() => checkAuthorization(frozen.snapshot, frozen.snapshotHash));
+    }
+  }
+});
+
+test('default blanks never permit invented answers or bypass an explicit stale instruction', () => {
+  const input = { ...fixture(), schema: 'yunda-export-v2', watermark: 'none' };
+  const frozen = freezeSnapshot(input);
+  assert.throws(() => checkAuthorization(frozen.snapshot, frozen.snapshotHash, { snapshot_sha256: 'old' }), /stale/);
+  input.display_values.hiv = 'No';
+  assert.throws(() => freezeSnapshot(input), /remain blank/);
+  const legacy = freezeSnapshot(fixture());
+  assert.throws(() => checkAuthorization(legacy.snapshot, legacy.snapshotHash), /authorization/);
+});
