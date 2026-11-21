@@ -1,0 +1,728 @@
+{
+  "schema_version": "1.0.0",
+  "profile_type": "intended-parent",
+  "states": [
+    "Present",
+    "Missing",
+    "Conflict"
+  ],
+  "scopes": {
+    "case": "One answer row per family.",
+    "parent": "One answer row per actual intended parent."
+  },
+  "values": "Preserve original text, with English and Chinese edited values in separate columns. An explicit unknown or conditional answer is Present. Missing values are empty. Resolve fields by scope and key.",
+  "fields": [
+    {
+      "key": "display_name",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "Your Name",
+      "label_zh": "姓名"
+    },
+    {
+      "key": "legal_name",
+      "scope": "parent",
+      "section": "identity",
+      "profile_export": false,
+      "label_en": "Full legal name",
+      "label_zh": "法定姓名"
+    },
+    {
+      "key": "birth_date",
+      "scope": "parent",
+      "section": "identity",
+      "profile_export": false,
+      "label_en": "Date of birth",
+      "label_zh": "出生日期"
+    },
+    {
+      "key": "age",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "Age",
+      "label_zh": "年龄"
+    },
+    {
+      "key": "gender",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "Gender",
+      "label_zh": "性别"
+    },
+    {
+      "key": "ethnicity",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "Ethnicity",
+      "label_zh": "族裔"
+    },
+    {
+      "key": "occupation",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "Occupation",
+      "label_zh": "职业"
+    },
+    {
+      "key": "location",
+      "scope": "parent",
+      "section": "identity",
+      "profile_export": false,
+      "label_en": "City and country of residence",
+      "label_zh": "居住城市和国家"
+    },
+    {
+      "key": "citizenship",
+      "scope": "parent",
+      "section": "identity",
+      "profile_export": false,
+      "label_en": "Countries of citizenship",
+      "label_zh": "国籍"
+    },
+    {
+      "key": "personality",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "How would you describe your personality?",
+      "label_zh": "您会如何描述自己的性格？"
+    },
+    {
+      "key": "surrogate_introduction",
+      "scope": "parent",
+      "section": "parent",
+      "profile_export": true,
+      "label_en": "What would you like the surrogate to know about you?",
+      "label_zh": "您希望代母了解哪些关于您的信息？"
+    },
+    {
+      "key": "religion",
+      "scope": "parent",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Religion or beliefs",
+      "label_zh": "宗教或信仰"
+    },
+    {
+      "key": "overall_health",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Overall health",
+      "label_zh": "总体健康状况"
+    },
+    {
+      "key": "life_threatening_conditions",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Life-threatening medical conditions",
+      "label_zh": "危及生命的健康问题"
+    },
+    {
+      "key": "chronic_conditions",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Chronic health conditions",
+      "label_zh": "慢性健康问题"
+    },
+    {
+      "key": "hepatitis_b_vaccination",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Hepatitis B vaccination",
+      "label_zh": "乙肝疫苗接种"
+    },
+    {
+      "key": "hepatitis_b_exposure",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Previous hepatitis B exposure",
+      "label_zh": "既往乙肝暴露"
+    },
+    {
+      "key": "current_hepatitis_b",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Current hepatitis B infection",
+      "label_zh": "当前乙肝感染"
+    },
+    {
+      "key": "hepatitis_b_antibodies",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Hepatitis B antibodies",
+      "label_zh": "乙肝抗体"
+    },
+    {
+      "key": "current_cmv",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Current CMV infection",
+      "label_zh": "当前巨细胞病毒感染"
+    },
+    {
+      "key": "cmv_antibodies",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "CMV antibodies",
+      "label_zh": "巨细胞病毒抗体"
+    },
+    {
+      "key": "hiv_other_infections",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "HIV or other infectious diseases",
+      "label_zh": "HIV或其他传染病"
+    },
+    {
+      "key": "infectious_diseases",
+      "scope": "parent",
+      "section": "health",
+      "profile_export": false,
+      "label_en": "Other infectious disease answers and details",
+      "label_zh": "其他传染病回答及说明"
+    },
+    {
+      "key": "relationship_status",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": false,
+      "label_en": "Relationship status",
+      "label_zh": "婚姻或伴侣关系状态"
+    },
+    {
+      "key": "legally_married",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Are you legally married?",
+      "label_zh": "是否依法结婚？"
+    },
+    {
+      "key": "current_residence",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Where do you currently live?",
+      "label_zh": "目前居住在哪里？"
+    },
+    {
+      "key": "citizenship",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "What countries are you a citizen of?",
+      "label_zh": "拥有哪些国家的国籍？"
+    },
+    {
+      "key": "languages_spoken",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Languages spoken",
+      "label_zh": "使用的语言"
+    },
+    {
+      "key": "family_support",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "What extended family or friend support do you have?",
+      "label_zh": "有哪些亲友支持？"
+    },
+    {
+      "key": "other_children",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "Do you have other children? Include their number and ages.",
+      "label_zh": "是否已有孩子？如有，请说明人数和年龄。"
+    },
+    {
+      "key": "surrogacy_reason",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "What brought you to surrogacy?",
+      "label_zh": "为什么选择代孕？"
+    },
+    {
+      "key": "surrogate_qualities",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "What qualities are important when selecting a surrogate?",
+      "label_zh": "选择代母时重视哪些条件？"
+    },
+    {
+      "key": "pets_accepted",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "Do you accept a surrogate having pets at home?",
+      "label_zh": "是否接受代母家中养宠物？"
+    },
+    {
+      "key": "contact_during_pregnancy",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "What contact would you like during the pregnancy?",
+      "label_zh": "孕期希望如何联系？"
+    },
+    {
+      "key": "contact_after_delivery",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "What contact would you like after delivery?",
+      "label_zh": "分娩后希望如何联系？"
+    },
+    {
+      "key": "disclosure_to_child",
+      "scope": "case",
+      "section": "general",
+      "profile_export": true,
+      "label_en": "Do you plan to tell your child about the surrogate?",
+      "label_zh": "是否计划向孩子解释代母的角色？"
+    },
+    {
+      "key": "child_meeting_surrogate",
+      "scope": "case",
+      "section": "relationship",
+      "profile_export": false,
+      "label_en": "How would you feel if your child wanted to meet the surrogate?",
+      "label_zh": "如果孩子希望见代母，您会如何看待？"
+    },
+    {
+      "key": "appointment_attendance",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you like to attend prenatal appointments?",
+      "label_zh": "是否希望陪同产检？"
+    },
+    {
+      "key": "embryo_transfer_attendance",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": false,
+      "label_en": "Would you like to attend embryo transfer?",
+      "label_zh": "是否希望陪同胚胎移植？"
+    },
+    {
+      "key": "delivery_room_attendance",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you like to be present in the delivery room?",
+      "label_zh": "是否希望进入产房见证出生？"
+    },
+    {
+      "key": "arrival_before_delivery",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": false,
+      "label_en": "When do you plan to arrive before delivery?",
+      "label_zh": "计划在分娩前多久抵达？"
+    },
+    {
+      "key": "breastfeeding_preference",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": false,
+      "label_en": "Would you like the surrogate to breastfeed?",
+      "label_zh": "是否希望代母母乳喂养？"
+    },
+    {
+      "key": "ivf_clinic",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": true,
+      "label_en": "IVF Clinic",
+      "label_zh": "试管婴儿诊所"
+    },
+    {
+      "key": "ivf_doctor",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": true,
+      "label_en": "IVF Doctor",
+      "label_zh": "试管婴儿医生"
+    },
+    {
+      "key": "ivf_coordinator",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": true,
+      "label_en": "IVF Nurse or Coordinator",
+      "label_zh": "试管婴儿护士或协调员"
+    },
+    {
+      "key": "embryos_created",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Have embryos already been created?",
+      "label_zh": "目前是否已有胚胎？"
+    },
+    {
+      "key": "embryo_count",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Number of embryos",
+      "label_zh": "胚胎数量"
+    },
+    {
+      "key": "male_embryo_count",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Number of male embryos",
+      "label_zh": "男性胚胎数量"
+    },
+    {
+      "key": "female_embryo_count",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Number of female embryos",
+      "label_zh": "女性胚胎数量"
+    },
+    {
+      "key": "egg_source",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Was an egg donor used to create your embryos?",
+      "label_zh": "胚胎的卵子是否来自捐赠者？"
+    },
+    {
+      "key": "sperm_source",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Was a sperm donor used to create your embryos?",
+      "label_zh": "胚胎的精子是否来自捐赠者？"
+    },
+    {
+      "key": "pgt_a",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Were the embryos PGT-A tested?",
+      "label_zh": "胚胎是否做过PGT-A检测？"
+    },
+    {
+      "key": "pgt_m",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Were the embryos PGT-M tested?",
+      "label_zh": "胚胎是否做过PGT-M检测？"
+    },
+    {
+      "key": "pgd_pgs",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Have the embryos undergone PGD or PGS testing?",
+      "label_zh": "胚胎是否做过PGD或PGS检测？"
+    },
+    {
+      "key": "embryo_gender_preference",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Embryo sex preference",
+      "label_zh": "胚胎性别偏好"
+    },
+    {
+      "key": "desired_plurality",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Desired singleton or twin pregnancy",
+      "label_zh": "期望单胎或双胎"
+    },
+    {
+      "key": "embryos_per_transfer",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "How many embryos do you plan to transfer at a time?",
+      "label_zh": "每次计划移植几个胚胎？"
+    },
+    {
+      "key": "reduction_multiple",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": false,
+      "label_en": "Selective reduction for a multiple pregnancy",
+      "label_zh": "多胎妊娠的选择性减胎意愿"
+    },
+    {
+      "key": "reduction_triplets",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you choose reduction for triplets or more?",
+      "label_zh": "三胎及以上时是否选择减胎？"
+    },
+    {
+      "key": "reduction_twins",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you choose reduction for twins?",
+      "label_zh": "双胎时是否选择减胎？"
+    },
+    {
+      "key": "invasive_testing_without_recommendation",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you request amniocentesis or CVS without a medical recommendation?",
+      "label_zh": "无医学建议时是否要求羊水穿刺或绒毛取样？"
+    },
+    {
+      "key": "termination_correctable_abnormality",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": false,
+      "label_en": "Termination for surgically correctable abnormalities",
+      "label_zh": "可手术纠正的异常是否考虑终止妊娠"
+    },
+    {
+      "key": "termination_severe_abnormality",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you consider termination for a severe abnormality? Define severe.",
+      "label_zh": "严重异常是否考虑终止妊娠？如何理解严重异常？"
+    },
+    {
+      "key": "termination_down_syndrome",
+      "scope": "case",
+      "section": "pregnancy",
+      "profile_export": true,
+      "label_en": "Would you consider termination for confirmed Down syndrome?",
+      "label_zh": "确诊唐氏综合征时是否考虑终止妊娠？"
+    },
+    {
+      "key": "newborn_insurance",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "Do you have insurance you plan to add the baby to?",
+      "label_zh": "是否已有计划将宝宝加入的保险？"
+    },
+    {
+      "key": "message_to_surrogate",
+      "scope": "case",
+      "section": "matching",
+      "profile_export": true,
+      "label_en": "A short message to your prospective surrogate",
+      "label_zh": "给未来代母的寄语"
+    },
+    {
+      "key": "years_trying_to_conceive",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Years trying or planning to conceive",
+      "label_zh": "备孕或计划生育年数"
+    },
+    {
+      "key": "pregnancy_count",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Number of past pregnancies",
+      "label_zh": "既往妊娠次数"
+    },
+    {
+      "key": "ectopic_pregnancies",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Ectopic pregnancies",
+      "label_zh": "宫外孕"
+    },
+    {
+      "key": "stillbirths",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Stillbirths",
+      "label_zh": "死胎或死产"
+    },
+    {
+      "key": "live_births",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Live births",
+      "label_zh": "活产"
+    },
+    {
+      "key": "miscarriages",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Miscarriages",
+      "label_zh": "流产"
+    },
+    {
+      "key": "abortions",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Induced abortions",
+      "label_zh": "人工终止妊娠"
+    },
+    {
+      "key": "pregnancy_risk_advice",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Advice that pregnancy could harm health",
+      "label_zh": "怀孕可能影响健康的医生建议"
+    },
+    {
+      "key": "infertility_reason",
+      "scope": "case",
+      "section": "history",
+      "profile_export": false,
+      "label_en": "Known reason for infertility",
+      "label_zh": "已知不孕原因"
+    },
+    {
+      "key": "help_sought",
+      "scope": "case",
+      "section": "ivf",
+      "profile_export": false,
+      "label_en": "Seeking donor, surrogate, or both",
+      "label_zh": "寻求捐赠者、代母或两者"
+    },
+    {
+      "key": "prior_surrogacy",
+      "scope": "case",
+      "section": "preferences",
+      "profile_export": false,
+      "label_en": "Previous surrogacy experience and outcome",
+      "label_zh": "既往代孕经历及结果"
+    },
+    {
+      "key": "multiple_surrogates",
+      "scope": "case",
+      "section": "preferences",
+      "profile_export": false,
+      "label_en": "Plans to work with more than one surrogate",
+      "label_zh": "是否计划与多位代母合作"
+    },
+    {
+      "key": "surrogate_marital_preference",
+      "scope": "case",
+      "section": "preferences",
+      "profile_export": false,
+      "label_en": "Surrogate relationship-status preferences",
+      "label_zh": "代母婚姻或伴侣关系偏好"
+    },
+    {
+      "key": "surrogate_age_preference",
+      "scope": "case",
+      "section": "preferences",
+      "profile_export": false,
+      "label_en": "Surrogate age preferences",
+      "label_zh": "代母年龄偏好"
+    },
+    {
+      "key": "surrogate_state_preference",
+      "scope": "case",
+      "section": "preferences",
+      "profile_export": false,
+      "label_en": "Surrogate residence or state preferences",
+      "label_zh": "代母居住州偏好"
+    },
+    {
+      "key": "surrogate_nationality_preference",
+      "scope": "case",
+      "section": "preferences",
+      "profile_export": false,
+      "label_en": "Surrogate nationality or ethnicity preferences",
+      "label_zh": "代母国籍或族裔偏好"
+    },
+    {
+      "key": "understanding_surrogacy",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Understanding of the surrogacy process",
+      "label_zh": "对代孕过程的理解"
+    },
+    {
+      "key": "hobbies",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Activities after work or on weekends",
+      "label_zh": "工作之余或周末活动"
+    },
+    {
+      "key": "favorite_food",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Favorite food",
+      "label_zh": "喜欢的食物"
+    },
+    {
+      "key": "music_preferences",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Music preferences",
+      "label_zh": "音乐偏好"
+    },
+    {
+      "key": "religion",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Religious beliefs as described",
+      "label_zh": "信仰说明"
+    },
+    {
+      "key": "life_with_child",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "How having a baby would change your life",
+      "label_zh": "宝宝将带来的生活变化"
+    },
+    {
+      "key": "additional_notes",
+      "scope": "case",
+      "section": "background",
+      "profile_export": false,
+      "label_en": "Other source information",
+      "label_zh": "其他原始信息"
+    }
+  ]
+}

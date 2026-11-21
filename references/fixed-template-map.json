@@ -1,0 +1,520 @@
+{
+  "schema": "yunda-ip-field-map-v1",
+  "version": "yunda-ip-six-page-bilingual-v1.0.1",
+  "template_sha256": "",
+  "page_count": 6,
+  "width": 595.5,
+  "height": 842.2499787,
+  "fields": [
+    {
+      "field": "display_title",
+      "page": 0,
+      "rect": [
+        225,
+        476.829981,
+        520,
+        501.829981
+      ],
+      "fontSize": 15
+    },
+    {
+      "field": "profile_date",
+      "page": 0,
+      "rect": [
+        183,
+        506.829981,
+        390,
+        529.829981
+      ],
+      "fontSize": 15
+    },
+    {
+      "field": "parent1.display_name",
+      "page": 1,
+      "rect": [
+        156.8,
+        170.819981,
+        503.2,
+        196.229981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent1.age",
+      "page": 1,
+      "rect": [
+        156.8,
+        197.829981,
+        503.2,
+        223.239981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent1.gender",
+      "page": 1,
+      "rect": [
+        156.8,
+        224.839981,
+        503.2,
+        250.249981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent1.ethnicity",
+      "page": 1,
+      "rect": [
+        156.8,
+        251.849981,
+        503.2,
+        277.259981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent1.occupation",
+      "page": 1,
+      "rect": [
+        156.8,
+        278.859981,
+        503.2,
+        304.269981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.display_name",
+      "page": 1,
+      "rect": [
+        156.8,
+        464.299981,
+        503.2,
+        489.759981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.age",
+      "page": 1,
+      "rect": [
+        156.8,
+        491.359981,
+        503.2,
+        516.789981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.gender",
+      "page": 1,
+      "rect": [
+        156.8,
+        518.389981,
+        503.2,
+        543.819981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.ethnicity",
+      "page": 1,
+      "rect": [
+        156.8,
+        545.419981,
+        503.2,
+        570.839981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.occupation",
+      "page": 1,
+      "rect": [
+        156.8,
+        572.439981,
+        503.2,
+        597.869981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent1.personality",
+      "page": 1,
+      "rect": [
+        50.7,
+        333.079981,
+        503.2,
+        358.089981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent1.surrogate_introduction",
+      "page": 1,
+      "rect": [
+        50.7,
+        387.099981,
+        503.2,
+        412.109981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.personality",
+      "page": 1,
+      "rect": [
+        50.7,
+        626.739981,
+        503.2,
+        651.939981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "parent2.surrogate_introduction",
+      "page": 1,
+      "rect": [
+        50.7,
+        681.009981,
+        503.2,
+        706.409981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "pets_accepted",
+      "page": 2,
+      "rect": [
+        50.7,
+        193.929981,
+        503.2,
+        218.939981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "family_support",
+      "page": 2,
+      "rect": [
+        50.7,
+        247.949981,
+        503.2,
+        272.959981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "other_children",
+      "page": 2,
+      "rect": [
+        50.7,
+        312.469981,
+        503.2,
+        337.299981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "surrogacy_reason",
+      "page": 2,
+      "rect": [
+        50.7,
+        366.319981,
+        503.2,
+        412.069981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "surrogate_qualities",
+      "page": 2,
+      "rect": [
+        50.7,
+        447.089981,
+        503.2,
+        478.099981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "contact_during_pregnancy",
+      "page": 2,
+      "rect": [
+        50.7,
+        517.619981,
+        503.2,
+        552.769981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "contact_after_delivery",
+      "page": 2,
+      "rect": [
+        50.7,
+        592.289981,
+        503.2,
+        627.619981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "disclosure_to_child",
+      "page": 2,
+      "rect": [
+        50.7,
+        667.139981,
+        503.2,
+        702.289981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "appointment_attendance",
+      "page": 3,
+      "rect": [
+        60.7,
+        206.719981,
+        503.2,
+        231.499981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "delivery_room_attendance",
+      "page": 3,
+      "rect": [
+        60.7,
+        272.519981,
+        503.2,
+        297.319981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "embryos_per_transfer",
+      "page": 3,
+      "rect": [
+        60.7,
+        326.339981,
+        503.2,
+        351.339981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "reduction_triplets",
+      "page": 3,
+      "rect": [
+        60.7,
+        393.859981,
+        503.2,
+        418.639981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "reduction_twins",
+      "page": 3,
+      "rect": [
+        60.7,
+        458.159981,
+        503.2,
+        483.159981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "invasive_testing_without_recommendation",
+      "page": 3,
+      "rect": [
+        60.7,
+        522.679981,
+        503.2,
+        547.679981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "termination_severe_abnormality",
+      "page": 3,
+      "rect": [
+        60.7,
+        600.709981,
+        503.2,
+        635.809981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "termination_down_syndrome",
+      "page": 3,
+      "rect": [
+        60.7,
+        673.829981,
+        503.2,
+        708.999981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "legally_married",
+      "page": 4,
+      "rect": [
+        60.7,
+        215.249981,
+        503.2,
+        240.249981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "current_residence",
+      "page": 4,
+      "rect": [
+        60.7,
+        281.269981,
+        503.2,
+        306.069981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "citizenship",
+      "page": 4,
+      "rect": [
+        60.7,
+        335.089981,
+        503.2,
+        360.089981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "pgt_a",
+      "page": 4,
+      "rect": [
+        60.7,
+        454.929981,
+        503.2,
+        479.929981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "newborn_insurance",
+      "page": 4,
+      "rect": [
+        60.7,
+        523.949981,
+        503.2,
+        548.699981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "message_to_surrogate",
+      "page": 4,
+      "rect": [
+        60.7,
+        589.719981,
+        503.2,
+        686.979981
+      ],
+      "fontSize": 11
+    },
+    {
+      "field": "egg_source",
+      "page": 4,
+      "rect": [
+        60.7,
+        401.129981,
+        280,
+        425.829981
+      ],
+      "fontSize": 10
+    },
+    {
+      "field": "sperm_source",
+      "page": 4,
+      "rect": [
+        283,
+        401.129981,
+        503.2,
+        425.829981
+      ],
+      "fontSize": 10
+    }
+  ],
+  "photo_layouts": {
+    "0": [],
+    "1": [
+      {
+        "role": "photo-1",
+        "page": 5,
+        "rect": [
+          60,
+          320,
+          505,
+          735
+        ]
+      }
+    ],
+    "2": [
+      {
+        "role": "photo-1",
+        "page": 5,
+        "rect": [
+          60,
+          320,
+          505,
+          515
+        ]
+      },
+      {
+        "role": "photo-2",
+        "page": 5,
+        "rect": [
+          60,
+          528,
+          505,
+          735
+        ]
+      }
+    ],
+    "3": [
+      {
+        "role": "photo-1",
+        "page": 5,
+        "rect": [
+          60,
+          320,
+          505,
+          450
+        ]
+      },
+      {
+        "role": "photo-2",
+        "page": 5,
+        "rect": [
+          60,
+          460,
+          505,
+          590
+        ]
+      },
+      {
+        "role": "photo-3",
+        "page": 5,
+        "rect": [
+          60,
+          600,
+          505,
+          730
+        ]
+      }
+    ]
+  },
+  "label_policy": "Preserve every supplied bilingual label, table, footer, page, and brand asset. Language controls answer text, not template reflow."
+}
